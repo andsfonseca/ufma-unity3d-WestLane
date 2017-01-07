@@ -37,4 +37,5 @@ public class GameLogic : MonoBehaviour {
     }
 
     public SceneGenerator sceneGenerator;
+    //public Player player;
 }

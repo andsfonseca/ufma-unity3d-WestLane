@@ -14,7 +14,10 @@ public class SceneGenerator : MonoBehaviour {
     public string phaseProgression;
 
     //Bloco que será instanciado
-    private GameObject m_block;
+    public GameObject block;
+
+    //Sequencia de Fases que serão instaciadas
+    private List<GameObject> m_BlocksLineList;
 
     //Sequencia de Fases que serão instaciadas
     private List<SceneObject> m_PhaseProgressionList;
@@ -34,6 +37,9 @@ public class SceneGenerator : MonoBehaviour {
     //Booleana indicativa se as fases geradas serão randomicas
     private bool m_isRandom;
 
+    //Blocos Registrados
+    private Dictionary<string, SceneBlock> m_blockDict;
+
     ///<summary>
     ///Recupera a fase atual
     ///</summary>
@@ -51,11 +57,17 @@ public class SceneGenerator : MonoBehaviour {
             gameObject.SetActive(false);
             return;
         }
+        //Se o bloco não possui o Script de SceneBlock
+        if (block.GetComponent<SceneBlock>() == null) {
+            block.AddComponent<SceneBlock>();
+        }
 
         //Se não existir fases carregadas
         if (phases.Length == 0) {
             Debug.Log("Nenhuma Fase Cadastrada");
         }
+
+        m_BlocksLineList = new List<GameObject>();
     }
 
     /// <summary>
@@ -90,6 +102,33 @@ public class SceneGenerator : MonoBehaviour {
     /// Gera uma linha do cenário
     /// </summary>
 	private void GenerateLine() {
+
+        bool hasAInactiveObject = false; ;
+        foreach (GameObject go in m_BlocksLineList) {
+            if (!go.activeSelf) {
+                hasAInactiveObject = true;
+                break;
+            }
+        }
+
+        if (hasAInactiveObject)
+        {
+            //Do Something
+        }
+        else {
+            GameObject linesBlocks = Instantiate(new GameObject(), transform.position, Quaternion.identity) as GameObject;
+            linesBlocks.transform.parent = transform;
+            m_BlocksLineList.Add(linesBlocks);
+
+            for (int i=0; i<8; i++) {
+                GameObject blockNew = Instantiate(block, transform.position, Quaternion.identity) as GameObject;
+                blockNew.transform.parent = linesBlocks.transform.parent;
+                blockNew.GetComponent<SceneBlock>().setBlock(m_currentPhase, m_currentLine, i);
+                m_blockDict.Add(m_BlocksLineList.IndexOf(linesBlocks) + "-" + m_currentLine + "," + i, blockNew.GetComponent<SceneBlock>());
+            }
+
+        }
+
 
     }
     /// <summary>

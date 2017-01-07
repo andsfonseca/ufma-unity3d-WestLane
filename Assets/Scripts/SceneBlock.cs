@@ -37,27 +37,18 @@ public class SceneBlock : MonoBehaviour {
         GetComponent<SpriteRenderer>().sprite = null; //TODO: m_parent.getSprite(line, column);
     }
 
-    public bool OnPlayerTryTouchMe() {
-        return false; //TODO: m_parent.OnPlayerTryTouch(line, column);
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        switch (other.tag) {
+            case "Player": {
+                    //TODO: m_parent.OnPlayerTryTouch(line, column);
+                    break;
+                }
+        }
     }
 
     public bool OnPlayerActionMe() {
         return false; //TODO: m_parent.doAction(line, column);
     }
 
-    public SceneBlock getAdjascent(string side) {
-        switch (side) {
-            case "left": 
-                return sides[0];
-            case "up":
-                return sides[1];
-            case "right":
-                return sides[2];
-            case "down":
-                return sides[4];
-            default:
-                Debug.Log("String de lado incorreta");
-                return null;
-        }
-    }
 }
