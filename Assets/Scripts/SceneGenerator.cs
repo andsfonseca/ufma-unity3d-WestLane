@@ -80,7 +80,7 @@ public class SceneGenerator : MonoBehaviour {
 			}
 		}
 
-		GameObject lb = Instantiate (LineBlocks, nextPosition , Quaternion.identity);
+		GameObject lb = Instantiate (LineBlocks, nextPosition , Quaternion.identity) as GameObject;
 		//TODO: Gerar Sprites
 	}
 
