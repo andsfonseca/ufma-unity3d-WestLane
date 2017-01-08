@@ -68,4 +68,10 @@ public class SceneObject : MonoBehaviour {
 			return true;
 		}
 	}
+
+
+	/*ublic bool doActiion(int line, int column){
+		
+	}*/
+
 }
