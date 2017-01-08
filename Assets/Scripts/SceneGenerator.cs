@@ -40,6 +40,8 @@ public class SceneGenerator : MonoBehaviour {
     //Blocos Registrados
     private Dictionary<string, SceneBlock> m_blockDict;
 
+    private GameObject m_reversePointSpawn;
+
     ///<summary>
     ///Recupera a fase atual
     ///</summary>
@@ -67,11 +69,13 @@ public class SceneGenerator : MonoBehaviour {
             Debug.Log("Nenhuma Fase Cadastrada");
         }
 
+        //Recupera o PointSpawn
+        m_reversePointSpawn = transform.GetChild(0).gameObject;
+        m_reversePointSpawn.transform.position = new Vector2(transform.position.x * -1, transform.position.y);
+        
         //Gera Listas e Dicionários
         m_BlocksLineList = new List<GameObject>();
         m_blockDict = new Dictionary<string, SceneBlock>();
-
-      
 
         StartGeneration(8);
     }
@@ -127,12 +131,20 @@ public class SceneGenerator : MonoBehaviour {
             linesBlocks.transform.position = transform.position;
             m_BlocksLineList.Add(linesBlocks);
             linesBlocks.transform.parent = GameLogic.Instance.GameElements;
-            for (int i=0; i<8; i++) {
+            for (int i=0; i<4; i++) {
                 GameObject blockNew = Instantiate(block, new Vector3(transform.position.x + (block.GetComponent<SpriteRenderer>().sprite.bounds.size.x*i), transform.position.y, transform.position.z), Quaternion.identity) as GameObject;
                 blockNew.transform.parent = linesBlocks.transform;
                 blockNew.GetComponent<SceneBlock>().setBlock(m_currentPhase, m_currentLine, i);
                 m_blockDict.Add(m_BlocksLineList.IndexOf(linesBlocks) + "-" + m_currentLine + "," + i, blockNew.GetComponent<SceneBlock>());
             }
+            for (int i = 3, j=0 ; i >= 0; i--, j++)
+            {
+                GameObject blockNew = Instantiate(block, new Vector3(m_reversePointSpawn.transform.position.x - (block.GetComponent<SpriteRenderer>().sprite.bounds.size.x * j), m_reversePointSpawn.transform.position.y, m_reversePointSpawn.transform.position.z), Quaternion.identity) as GameObject;
+                blockNew.transform.parent = linesBlocks.transform;
+                blockNew.GetComponent<SceneBlock>().setBlock(m_currentPhase, m_currentLine, i);
+                m_blockDict.Add(m_BlocksLineList.IndexOf(linesBlocks) + "-R" + m_currentLine + "," + i, blockNew.GetComponent<SceneBlock>());
+            }
+
 
             linesBlocks.name = "LineBlock - " + m_BlocksLineList.IndexOf(linesBlocks);
             
