@@ -41,19 +41,26 @@ public class SceneObject : MonoBehaviour {
 		}
 	}
 
-	public Sprite getSprite(int line,  int column){
+    public Sprite getSprite(int line, int column) {
 
-        int number = m_matriz[line][column];
-        if (number < sprites.Length) {
-            return sprites[number];
+        if (m_matriz == null) generateMatriz();
+        if (line < m_matriz.Length) {
+            if (column < m_matriz[line].Length){
+                int number = m_matriz[line][column];
+                if (number < sprites.Length)
+                {
+                    return sprites[number];
+                }
+            }
         }
         return null;
 	}
 		
 	public bool OnPlayerTryTouch(int line,  int column){
-		
-		//testa os espaços na matriz de acordo com os numeros que representam esses espaços 
-		if (m_matriz [line] [column] == 1 || m_matriz [line] [column] == 2) {
+
+        if (m_matriz == null) generateMatriz();
+        //testa os espaços na matriz de acordo com os numeros que representam esses espaços 
+        if (m_matriz [line] [column] == 1 || m_matriz [line] [column] == 2) {
 			//retorna false indicando que esses numeros(espaços) não posso acessar-los
 			return false;
 		}

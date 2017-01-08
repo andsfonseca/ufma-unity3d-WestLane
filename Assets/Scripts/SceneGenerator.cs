@@ -67,7 +67,13 @@ public class SceneGenerator : MonoBehaviour {
             Debug.Log("Nenhuma Fase Cadastrada");
         }
 
+        //Gera Listas e Dicionários
         m_BlocksLineList = new List<GameObject>();
+        m_blockDict = new Dictionary<string, SceneBlock>();
+
+      
+
+        StartGeneration(8);
     }
 
     /// <summary>
@@ -75,13 +81,14 @@ public class SceneGenerator : MonoBehaviour {
     /// </summary>
     /// <param name="lines">Numero de linhas a ser instaciado</param>
 	public void StartGeneration(int lines) {
-
         //Caso tenha Escrito Random, as fases serão aleatórias
-        if (phaseProgression == "random") {
+        if (phaseProgression.Contains("random")) {
             m_isRandom = true;
+            Debug.Log("RandomPhase Enabled");
         }
         // Caso não elas serão instanciado a partir da lista de fases registradas
         else {
+            Debug.Log("RandomPhase Disabled");
             m_PhaseProgressionList = new List<SceneObject>();
             foreach (string s in phaseProgression.Split(',')) {
                 m_PhaseProgressionList.Add(phases[int.Parse(s)]);
@@ -93,7 +100,8 @@ public class SceneGenerator : MonoBehaviour {
 
         m_currentLine = 0;
         m_currentPhase = initialPhase;
-        for (int i = 1; i > lines; i++) {
+        m_nextPhase = getScene();
+        for (int i = 0; i < lines; i++) {
             GenerateLine();
         }
     }
@@ -102,7 +110,6 @@ public class SceneGenerator : MonoBehaviour {
     /// Gera uma linha do cenário
     /// </summary>
 	private void GenerateLine() {
-
         bool hasAInactiveObject = false; ;
         foreach (GameObject go in m_BlocksLineList) {
             if (!go.activeSelf) {
@@ -116,28 +123,38 @@ public class SceneGenerator : MonoBehaviour {
             //Do Something
         }
         else {
-            GameObject linesBlocks = Instantiate(new GameObject(), transform.position, Quaternion.identity) as GameObject;
-            linesBlocks.transform.parent = transform;
+            GameObject linesBlocks = new GameObject();
+            linesBlocks.transform.position = transform.position;
             m_BlocksLineList.Add(linesBlocks);
-
+            linesBlocks.transform.parent = GameLogic.Instance.GameElements;
             for (int i=0; i<8; i++) {
-                GameObject blockNew = Instantiate(block, transform.position, Quaternion.identity) as GameObject;
-                blockNew.transform.parent = linesBlocks.transform.parent;
+                GameObject blockNew = Instantiate(block, new Vector3(transform.position.x + (block.GetComponent<SpriteRenderer>().sprite.bounds.size.x*i), transform.position.y, transform.position.z), Quaternion.identity) as GameObject;
+                blockNew.transform.parent = linesBlocks.transform;
                 blockNew.GetComponent<SceneBlock>().setBlock(m_currentPhase, m_currentLine, i);
                 m_blockDict.Add(m_BlocksLineList.IndexOf(linesBlocks) + "-" + m_currentLine + "," + i, blockNew.GetComponent<SceneBlock>());
             }
 
+            linesBlocks.name = "LineBlock - " + m_BlocksLineList.IndexOf(linesBlocks);
+            
         }
-
-
+        transform.Translate(0, block.GetComponent<SpriteRenderer>().sprite.bounds.size.y, 0);
+        Foward();
     }
     /// <summary>
     /// Avança de Cena e arruma o cenário para uma próxima Cena
     /// </summary>
     private void getNextScene() {
         m_currentPhase = m_nextPhase;
+        Debug.Log(m_currentPhase.gameObject.name);
         m_nextPhase = getScene();
         m_currentLine = 0;
+    }
+
+    private void Foward() {
+        if (m_currentLine < m_currentPhase.lanes.Length-1)
+            m_currentLine++;
+        else
+            getNextScene();
     }
 
     /// <summary>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameLogic : MonoBehaviour {
-
+    
     /// <summary>
     /// Recupera a Instância atual da GameLogic
     /// </summary>
@@ -36,6 +36,13 @@ public class GameLogic : MonoBehaviour {
         }
     }
 
+    [Header("Instance of Player 1")]
+    public Player player1;
+    [Header("Instance of Player 1")]
+    public Player player2;
+    [Header("The Scene Generator")]
     public SceneGenerator sceneGenerator;
-    //public Player player;
+    [Header("Game Elements Root")]
+    public Transform GameElements;
+
 }

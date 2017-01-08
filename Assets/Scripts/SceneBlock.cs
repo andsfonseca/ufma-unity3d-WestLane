@@ -33,18 +33,9 @@ public class SceneBlock : MonoBehaviour {
         m_parent = scObject;
         m_line = line;
         m_column = column;
-
-        GetComponent<SpriteRenderer>().sprite = null; //TODO: m_parent.getSprite(line, column);
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        switch (other.tag) {
-            case "Player": {
-                    //TODO: m_parent.OnPlayerTryTouch(line, column);
-                    break;
-                }
-        }
+        gameObject.name = "Block - " + line + "," + column;
+        GetComponent<SpriteRenderer>().sprite = m_parent.getSprite(line, column);
+        if (GetComponent<SpriteRenderer>().sprite == null) gameObject.SetActive(false);
     }
 
     public bool OnPlayerActionMe() {
