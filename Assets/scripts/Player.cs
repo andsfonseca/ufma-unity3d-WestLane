@@ -20,16 +20,18 @@ public class Player : MonoBehaviour {
 		nome = this.name;
 		tileMax = 2;
 		tileMin = 0;
-		if ((string.Compare (name, "p2")) == 0) {
+		if ((string.Compare (name, "Player2")) == 0) {
 			tileAtual = 2;
 		} else {
 			tileAtual = 0;
 		}
 		Debug.Log ("tile max do " + nome + " = " + tileMax);
+		speed = 0.02f;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		player.transform.Translate (new Vector3 (0, this.speed));
 		Mov (offset, tamanhoDoTile, nome, tileAtual, tileMax, tileMin);
 	}
 
@@ -37,7 +39,7 @@ public class Player : MonoBehaviour {
 		//Debug.Log ("tile atual do " + name + " = " + this.tileAtual);
 		float m = (float)(0.01*(offset+tile));
 		//v1 = (int)Mathf.Ceil(m);
-		if ((string.Compare (name, "p1"))==0) {
+		if ((string.Compare (name, "Player1"))==0) {
 			if (Input.GetKeyDown (KeyCode.A)) {
 				if (tA > tMin) {
 					player.transform.Translate (new Vector3 (-m, 0));
@@ -49,7 +51,7 @@ public class Player : MonoBehaviour {
 					this.tileAtual = this.tileAtual + 1;
 				}
 			}
-		}else if ((string.Compare (name, "p2"))==0) {
+		}else if ((string.Compare (name, "Player2"))==0) {
 			if (Input.GetKeyDown (KeyCode.LeftArrow)) {
 				if (tA > tMin) {
 					player.transform.Translate (new Vector3 (-m, 0));
