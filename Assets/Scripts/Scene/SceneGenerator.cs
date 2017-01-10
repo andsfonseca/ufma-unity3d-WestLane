@@ -194,5 +194,20 @@ public class SceneGenerator : MonoBehaviour {
         return aux;
     }
 
+    public float[] getLanePositions() {
+        float[] positions = new float[4];
+        for (int i = 0; i < 4; i++) {
+            positions[i] = transform.position.x + (block.GetComponent<SpriteRenderer>().sprite.bounds.size.x * i);
+        }
+        return positions;
+    }
+
+    public float[] getReverseLanePositions() {
+        float[] positions = new float[4];
+        for (int i = 0, j=3 ; i < 4; i++, j--) {
+            positions[j] = m_reversePointSpawn.transform.position.x - (block.GetComponent<SpriteRenderer>().sprite.bounds.size.x * i);
+        }
+        return positions;
+    }
 
 }
