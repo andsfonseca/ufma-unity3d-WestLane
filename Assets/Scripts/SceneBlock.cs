@@ -35,7 +35,16 @@ public class SceneBlock : MonoBehaviour {
         m_column = column;
         gameObject.name = "Block - " + line + "," + column;
         GetComponent<SpriteRenderer>().sprite = m_parent.getSprite(line, column);
+        GameObject go = m_parent.getGameobject(line, column);
         if (GetComponent<SpriteRenderer>().sprite == null) gameObject.SetActive(false);
+        foreach (Transform child in transform)
+        {
+            Destroy(child);
+        }
+        if (go != null) {
+            GameObject aux = Instantiate(go, transform.position + go.transform.localPosition, Quaternion.identity);
+            aux.transform.parent = transform;
+        }
     }
 
     public bool OnPlayerActionMe() {
