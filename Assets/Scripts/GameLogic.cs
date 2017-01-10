@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameLogic : MonoBehaviour {
-    
+
     /// <summary>
     /// Recupera a Instância atual da GameLogic
     /// </summary>
@@ -36,6 +36,10 @@ public class GameLogic : MonoBehaviour {
         }
     }
 
+
+    [Header("Game State Manager")]
+    public GameStateManager gameStateManager;
+
     [Header("Instance of Player 1")]
     public Player player1;
     [Header("Instance of Player 1")]
@@ -45,4 +49,13 @@ public class GameLogic : MonoBehaviour {
     [Header("Game Elements Root")]
     public Transform GameElements;
 
+    [Space]
+    [Header("Canvas")]
+    public GameObject MenuState;
+    public GameObject GameplayState;
+    public GameObject GameWinState;
+
+    void Start() {
+        gameStateManager.SwitchGameState(new MenuGameState());
+    }
 }
