@@ -49,12 +49,6 @@ public class GameLogic : MonoBehaviour {
     [Header("Game Elements Root")]
     public Transform GameElements;
 
-    [Space]
-    [Header("Canvas")]
-    public GameObject MenuState;
-    public GameObject GameplayState;
-    public GameObject GameWinState;
-
     void Start() {
         gameStateManager.SwitchGameState(new MenuGameState());
     }

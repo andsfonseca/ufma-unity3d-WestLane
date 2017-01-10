@@ -36,5 +36,9 @@ public class GameStateManager : MonoBehaviour{
         SwitchGameState(new GameplayState());
     }
 
+    [Header("Canvas")]
+    public GameObject MenuState;
+    public GameObject GameplayState;
+    public GameObject GameWinState;
 }
 
