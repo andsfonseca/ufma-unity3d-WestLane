@@ -17,6 +17,7 @@ public class SceneObject : MonoBehaviour {
 	//public string[] hole;
 
 
+
 	public void generateMatriz(){
 		//contador para saber o quanto ja percorri
 		int count = 0;
@@ -69,8 +70,34 @@ public class SceneObject : MonoBehaviour {
 		}
 	}
 
+	//função de ações de acordo com o numero (ação), retorna true se foi apertou o botão na hora certa
+	public bool doActionIten(int line, int column){
+		switch(m_matriz[line][column]){
+			//speed
+			case 5:
+				if (Input.GetKeyDown ("g") || Input.GetKeyDown ("m")) {
+					/*OnTriggerEnter(Collider other) {
+						Destroy(other.gameObject);
+					}*/
+					return true;
+				} 
+				else {
+					return false;
+				}	
 
-	/*ublic bool doActiion(int line, int column){
+			case 6:
+				if (Input.GetKeyDown ("g") || Input.GetKeyDown ("m")){
+					//print ("lentidão");
+					return true; 
+				} 
+				else {
+					return false;
+				}
+				
+	}
+
+
+	/*public bool doActiion(int line, int column){
 		
 	}*/
 

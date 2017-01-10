@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
+	private float speed;
 	private GameObject player;
 	//private int v1;
 	private float tamanhoDoTile;
@@ -79,5 +80,11 @@ public class Player : MonoBehaviour {
 		return false;
 	}
 
+	public float getSpeed(){
+		return this.speed;
+	}
 		
+	public void setSpeed(float speed){
+		this.speed = speed;
+	}
 }
