@@ -51,5 +51,13 @@ public class SceneBlock : MonoBehaviour {
         return false; //TODO: m_parent.doAction(line, column);
     }
 
+	void OnTriggerEnter2D(Collider2D other) {
+		Debug.Log (other.tag);
+		if (other.tag == "Player") {
+			if (!m_parent.OnPlayerTryTouch (m_line, m_column)) {
+				//avisa que o player morreu
+			}
+		}
+	}
 
 }

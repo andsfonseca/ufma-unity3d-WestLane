@@ -118,7 +118,6 @@ public class SceneGenerator : MonoBehaviour {
         GameObject linesBlocks = null;
         foreach (GameObject go in m_BlocksLineList) {
             if (!go.activeSelf) {
-                Debug.Log(!go.activeSelf);
                 hasAInactiveObject = true;
                 linesBlocks = go;
                 break;

@@ -83,25 +83,38 @@ public class SceneObject : MonoBehaviour {
 
         if (m_matriz == null) generateMatriz();
         //testa os espaços na matriz de acordo com os numeros que representam esses espaços 
-        if (m_matriz[line][column] == 1 || m_matriz[line][column] == 2) {
-            //retorna false indicando que esses numeros(espaços) não posso acessar-los
-            return false;
-        }
-        else {
-            return true;
-        }
+		switch (m_matriz [line] [column]) {
+			case 6:
+				return false;
+					
+			case 8:
+				return false;
+		}
+		return true;
     }
 
 
-	/*public bool onActionTouch(int liene, int column){
+	public void doAction(int line, int column){
+		float time;
+
 		switch (m_matriz [line] [column]) {
-			case 
-
-
+			
+			//speed
+			case 12:
+				StartCoroutine (Speed ());
+				//return true;
+				break;
 		}
-	}*/
+		//return false;
+	}
 
-
+	IEnumerator Speed(){
+		//Acelera
+		GameLogic.Instance.player1.setSpeed(0.04f);
+		yield return new WaitForSeconds(3);
+		//Desacelera
+		GameLogic.Instance.player1.setSpeed(0.02f);
+	}
 }
 
 [CustomEditor(typeof(SceneObject))]

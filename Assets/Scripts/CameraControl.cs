@@ -20,7 +20,6 @@ public class CameraControl : MonoBehaviour {
 		
 		x = 0;
 		y = Mathf.Max(p1.transform.position.y , p2.transform.position.y) ;
-		Debug.Log ("x = "+x+" - y = "+y);
 		this.transform.position = new Vector3(x, y);
 	}
 }
