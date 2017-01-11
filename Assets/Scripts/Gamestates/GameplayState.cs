@@ -15,6 +15,7 @@ public class GameplayState : GameState {
     public override void OnStartGameState() {
         base.OnStartGameState();
         GameLogic.Instance.gameStateManager.GameplayState.SetActive(true);
+        GameLogic.Instance.sceneGenerator.StartGeneration(8);
     }
 
     public override void OnChangeGameState() {

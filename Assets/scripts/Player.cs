@@ -36,8 +36,10 @@ public class Player : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		player.transform.Translate (new Vector3 (0, this.speed));
-		Mov (offset, tamanhoDoTile, nome, tileAtual, tileMax, tileMin);
+        if (GameLogic.Instance.gameStateManager.current == EGameState.PLAYING) {
+            player.transform.Translate(new Vector3(0, this.speed));
+            Mov(offset, tamanhoDoTile, nome, tileAtual, tileMax, tileMin);
+        }
 	}
 
 	private void Mov(float offset, float tile, string name, int tA, int tMax, int tMin){
