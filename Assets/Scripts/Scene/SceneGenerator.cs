@@ -113,32 +113,43 @@ public class SceneGenerator : MonoBehaviour {
     /// <summary>
     /// Gera uma linha do cenário
     /// </summary>
-	private void GenerateLine() {
-        bool hasAInactiveObject = false; ;
+	public void GenerateLine() {
+        bool hasAInactiveObject = false;
+        GameObject linesBlocks = null;
         foreach (GameObject go in m_BlocksLineList) {
             if (!go.activeSelf) {
+                Debug.Log(!go.activeSelf);
                 hasAInactiveObject = true;
+                linesBlocks = go;
                 break;
             }
         }
 
-        if (hasAInactiveObject)
-        {
-            //Do Something
+        if (hasAInactiveObject) {
+            linesBlocks.SetActive(true);
+            linesBlocks.transform.position = transform.position;
+            for (int i = 0; i < 4; i++) {
+                linesBlocks.transform.GetChild(i).position = new Vector3(transform.position.x + (block.GetComponent<SpriteRenderer>().sprite.bounds.size.x * i), transform.position.y, transform.position.z);
+                linesBlocks.transform.GetChild(i).gameObject.GetComponent<SceneBlock>().setBlock(m_currentPhase, m_currentLine, i);
+            }
+            for (int i = 3, j = 0; i >= 0; i--, j++) {
+                linesBlocks.transform.GetChild(7-j).position = new Vector3(m_reversePointSpawn.transform.position.x - (block.GetComponent<SpriteRenderer>().sprite.bounds.size.x * j), m_reversePointSpawn.transform.position.y, m_reversePointSpawn.transform.position.z);
+                linesBlocks.transform.GetChild(7-j).gameObject.GetComponent<SceneBlock>().setBlock(m_currentPhase, m_currentLine, i);
+            }
         }
         else {
-            GameObject linesBlocks = new GameObject();
+            linesBlocks = new GameObject();
+            linesBlocks.AddComponent<SceneLineChild>();
             linesBlocks.transform.position = transform.position;
             m_BlocksLineList.Add(linesBlocks);
             linesBlocks.transform.parent = GameLogic.Instance.GameElements;
-            for (int i=0; i<4; i++) {
-                GameObject blockNew = Instantiate(block, new Vector3(transform.position.x + (block.GetComponent<SpriteRenderer>().sprite.bounds.size.x*i), transform.position.y, transform.position.z), Quaternion.identity) as GameObject;
+            for (int i = 0; i < 4; i++) {
+                GameObject blockNew = Instantiate(block, new Vector3(transform.position.x + (block.GetComponent<SpriteRenderer>().sprite.bounds.size.x * i), transform.position.y, transform.position.z), Quaternion.identity) as GameObject;
                 blockNew.transform.parent = linesBlocks.transform;
                 blockNew.GetComponent<SceneBlock>().setBlock(m_currentPhase, m_currentLine, i);
                 m_blockDict.Add(m_BlocksLineList.IndexOf(linesBlocks) + "-" + m_currentLine + "," + i, blockNew.GetComponent<SceneBlock>());
             }
-            for (int i = 3, j=0 ; i >= 0; i--, j++)
-            {
+            for (int i = 3, j = 0; i >= 0; i--, j++) {
                 GameObject blockNew = Instantiate(block, new Vector3(m_reversePointSpawn.transform.position.x - (block.GetComponent<SpriteRenderer>().sprite.bounds.size.x * j), m_reversePointSpawn.transform.position.y, m_reversePointSpawn.transform.position.z), Quaternion.identity) as GameObject;
                 blockNew.transform.parent = linesBlocks.transform;
                 blockNew.GetComponent<SceneBlock>().setBlock(m_currentPhase, m_currentLine, i);
@@ -147,7 +158,7 @@ public class SceneGenerator : MonoBehaviour {
 
 
             linesBlocks.name = "LineBlock - " + m_BlocksLineList.IndexOf(linesBlocks);
-            
+
         }
         transform.Translate(0, block.GetComponent<SpriteRenderer>().sprite.bounds.size.y, 0);
         Foward();
@@ -210,4 +221,18 @@ public class SceneGenerator : MonoBehaviour {
         return positions;
     }
 
+}
+
+
+
+public class SceneLineChild: MonoBehaviour{
+    
+    void Update() {
+        if (GameLogic.Instance.cameraMain.transform.position.y - transform.position.y > 10f) {
+            gameObject.SetActive(false);
+            GameLogic.Instance.sceneGenerator.GenerateLine();
+        }
+    }
+
+    
 }
