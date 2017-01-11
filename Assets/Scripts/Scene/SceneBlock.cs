@@ -39,7 +39,7 @@ public class SceneBlock : MonoBehaviour {
         if (GetComponent<SpriteRenderer>().sprite == null) gameObject.SetActive(false);
         foreach (Transform child in transform)
         {
-            Destroy(child);
+            Destroy(child.gameObject);
         }
         if (go != null) {
             GameObject aux = Instantiate(go, transform.position + go.transform.localPosition, Quaternion.identity);
@@ -50,5 +50,6 @@ public class SceneBlock : MonoBehaviour {
     public bool OnPlayerActionMe() {
         return false; //TODO: m_parent.doAction(line, column);
     }
+
 
 }
