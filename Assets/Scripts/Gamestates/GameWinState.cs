@@ -14,11 +14,11 @@ public class GameWinState : GameState {
 
 	public override void OnStartGameState() {
 		base.OnStartGameState();
-		GameLogic.Instance.GameWinState.SetActive(true);
+		GameLogic.Instance.gameStateManager.GameWinState.SetActive(true);
 	}
 
 	public override void OnChangeGameState() {
 		base.OnChangeGameState();
-		GameLogic.Instance.GameWinState.SetActive(false);
+		GameLogic.Instance.gameStateManager.GameWinState.SetActive(false);
 	}
 }

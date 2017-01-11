@@ -19,7 +19,7 @@ public class GameplayState : GameState {
 
     public override void OnChangeGameState() {
         base.OnChangeGameState();
-		GameLogic.Instance.GameplayState.SetActive(false);
+		GameLogic.Instance.gameStateManager.GameplayState.SetActive(false);
     }
 
 }
