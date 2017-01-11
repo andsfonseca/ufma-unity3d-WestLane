@@ -36,6 +36,8 @@ public class GameLogic : MonoBehaviour {
         }
     }
 
+    [Header("Camera")]
+    public Camera cameraMain;
 
     [Header("Game State Manager")]
     public GameStateManager gameStateManager;
@@ -49,13 +51,7 @@ public class GameLogic : MonoBehaviour {
     [Header("Game Elements Root")]
     public Transform GameElements;
 
-    [Space]
-    [Header("Canvas")]
-    public GameObject MenuState;
-    public GameObject GameplayState;
-    public GameObject GameWinState;
-
     void Start() {
-        gameStateManager.SwitchGameState(new MenuGameState());
+        gameStateManager.SwitchGameState(new GameplayState());
     }
 }

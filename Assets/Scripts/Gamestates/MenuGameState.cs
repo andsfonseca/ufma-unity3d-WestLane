@@ -14,12 +14,12 @@ public class MenuGameState : GameState {
 
     public override void OnStartGameState() {
         base.OnStartGameState();
-        GameLogic.Instance.MenuState.SetActive(true);
+        GameLogic.Instance.gameStateManager.MenuState.SetActive(true);
     }
 
     public override void OnChangeGameState() {
         base.OnChangeGameState();
-        GameLogic.Instance.MenuState.SetActive(false);
+        GameLogic.Instance.gameStateManager.MenuState.SetActive(false);
     }
 
 }
