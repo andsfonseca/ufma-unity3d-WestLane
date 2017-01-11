@@ -76,8 +76,7 @@ public class SceneGenerator : MonoBehaviour {
         //Gera Listas e Dicionários
         m_BlocksLineList = new List<GameObject>();
         m_blockDict = new Dictionary<string, SceneBlock>();
-
-        StartGeneration(8);
+   
     }
 
     /// <summary>

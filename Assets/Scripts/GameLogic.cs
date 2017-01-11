@@ -52,6 +52,6 @@ public class GameLogic : MonoBehaviour {
     public Transform GameElements;
 
     void Start() {
-        gameStateManager.SwitchGameState(new GameplayState());
+        gameStateManager.SwitchGameState(new MenuGameState());
     }
 }
