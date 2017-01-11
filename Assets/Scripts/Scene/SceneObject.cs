@@ -93,6 +93,15 @@ public class SceneObject : MonoBehaviour {
     }
 
 
+	/*public bool onActionTouch(int liene, int column){
+		switch (m_matriz [line] [column]) {
+			case 
+
+
+		}
+	}*/
+
+
 }
 
 [CustomEditor(typeof(SceneObject))]
