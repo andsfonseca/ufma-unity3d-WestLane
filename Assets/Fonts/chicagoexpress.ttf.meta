@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 188957d839fc34d46b070be936d98490
-timeCreated: 1484052511
+guid: f849b7067afbb5547bad567b87769f4e
+timeCreated: 1484099098
 licenseType: Free
 TrueTypeFontImporter:
   serializedVersion: 4
@@ -9,9 +9,9 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: Bleeding Cowboys
+  fontName: Chicago Express
   fontNames:
-  - Bleeding Cowboys
+  - Chicago Express
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

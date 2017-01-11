@@ -32,9 +32,22 @@ public class GameStateManager : MonoBehaviour{
     }
 
 
+	/* Menu */
     public void BtnPlay() {
         SwitchGameState(new GameplayState());
     }
+
+	/* Gameplay */
+	public void BtnEnd(){
+		SwitchGameState(new GameWinState ());
+	}
+
+	/*GameWin*/
+	//Restart Play (Retry)
+	public void BtnMenu(){
+		SwitchGameState(new MenuGameState());
+	}
+
 
 }
 
