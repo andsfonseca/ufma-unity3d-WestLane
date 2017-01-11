@@ -18,12 +18,12 @@ public class Player : MonoBehaviour {
 		tamanhoDoTile = 200f;
 		offset = 0f;
 		nome = this.name;
-		tileMax = 2;
+		tileMax = 3;
 		tileMin = 0;
 		if ((string.Compare (name, "Player2")) == 0) {
-			tileAtual = 2;
+			tileAtual = 1;
 		} else {
-			tileAtual = 0;
+			tileAtual = 2;
 		}
 		Debug.Log ("tile max do " + nome + " = " + tileMax);
 		speed = 0.02f;
