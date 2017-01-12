@@ -101,19 +101,75 @@ public class SceneObject : MonoBehaviour {
 			
 			//speed
 			case 12:
-				StartCoroutine (Speed ());
+				StartCoroutine (SpeedUp ());
 				//return true;
 				break;
+
+			//slow
+			case 15:
+				StartCoroutine (Slow ());
+				break;
+
+			case 18:
+				StartCoroutine (Freeze ());
+				break;
 		}
-		//return false;
 	}
 
-	IEnumerator Speed(){
-		//Acelera
-		GameLogic.Instance.player1.setSpeed(0.04f);
-		yield return new WaitForSeconds(3);
-		//Desacelera
-		GameLogic.Instance.player1.setSpeed(0.02f);
+	IEnumerator SpeedUp(){
+		if (Input.GetKeyDown("v")){
+			//Acelera
+			GameLogic.Instance.player1.setSpeed(0.04f);
+			yield return new WaitForSeconds(3);
+			//Desacelera
+			GameLogic.Instance.player1.setSpeed(0.02f);
+		}
+
+		if (Input.GetKeyDown ("m")) {
+			//Acelera
+			GameLogic.Instance.player2.setSpeed(0.04f);
+			yield return new WaitForSeconds(3);
+			//Desacelera
+			GameLogic.Instance.player2.setSpeed(0.02f);
+		}
+	}
+
+
+	IEnumerator Slow(){
+		if (Input.GetKeyDown("v")){
+			//Acelera
+			GameLogic.Instance.player2.setSpeed(0.01f);
+			yield return new WaitForSeconds(3);
+			//Desacelera
+			GameLogic.Instance.player2.setSpeed(0.02f);
+		}
+
+		if (Input.GetKeyDown ("m")) {
+			//Acelera
+			GameLogic.Instance.player1.setSpeed(0.01f);
+			yield return new WaitForSeconds(3);
+			//Desacelera
+			GameLogic.Instance.player1.setSpeed(0.02f);
+		}
+	}
+
+
+	IEnumerator Freeze(){
+		if (Input.GetKeyDown("v")){
+			//Acelera
+			GameLogic.Instance.player2.setSpeed(0.00f);
+			yield return new WaitForSeconds(2);
+			//Desacelera
+			GameLogic.Instance.player2.setSpeed(0.02f);
+		}
+
+		if (Input.GetKeyDown ("m")) {
+			//Acelera
+			GameLogic.Instance.player1.setSpeed(0.00f);
+			yield return new WaitForSeconds(2);
+			//Desacelera
+			GameLogic.Instance.player1.setSpeed(0.02f);
+		}
 	}
 }
 
